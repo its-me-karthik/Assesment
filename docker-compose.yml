@@ -1,0 +1,28 @@
+version: '3.4'
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql-data:/var/opt/mssql
+  worker1:
+    image: worker:latest
+    build:
+      context: .
+      dockerfile: src/Worker/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection="Server=tlspc-035;Database=Worker;Integrated Security=True;"
+  worker2:
+    image: worker:latest
+    build:
+      context: .
+      dockerfile: src/Worker/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection="Server=tlspc-035;Database=Worker;Integrated Security=True;"
+volumes:
+  mssql-data:

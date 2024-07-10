@@ -1,0 +1,12 @@
+name: dockercompose5204562485345639135
+services:
+  assement:
+    build:
+      context: C:\Projects\console\Assement\Assement
+      dockerfile: Dockerfile
+    image: assement
+    networks:
+      default: null
+networks:
+  default:
+    name: dockercompose5204562485345639135_default
